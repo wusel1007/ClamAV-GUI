@@ -55,7 +55,9 @@ private:
     bool                 lockFreshclamConf;
     QProcess            * getDBUserProcess;
     QProcess            * freshclamLocationProcess;
+    QProcess            * clamscanLocationProcess;
     QString               freshclamlocationProcessOutput;
+    QString               clamscanlocationProcessOutput;
     QProcess            *updater;
     QProcess            *startDeamonProcess;
     QProcess            *ps_process;
@@ -98,6 +100,8 @@ private slots:
     void slot_pidFileSelectButtonClicked();
     void slot_freshclamLocationProcessFinished();
     void slot_freshclamLocationProcessHasOutput();
+    void slot_clamscanLocationProcessFinished();
+    void slot_clamscanLocationProcessHasOutput();
     void slot_setFreshclamsettingsFrameState(bool state);
     void slot_autoStartDaemon();
     void slot_onUpdateExecuteButtonClicked();
@@ -112,6 +116,7 @@ signals:
     void updateDatabase();
     void freshclamStarted();
     void systemStatusChanged();
+    void quitApplication();
 
 };
 

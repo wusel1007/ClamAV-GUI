@@ -110,6 +110,7 @@ if (tempDir.exists(QDir::homePath() + "/.local/share/kservices5/ServiceMenus/sca
     logTab = new logViewerObject(this);
     ui->tabWidget->addTab(logTab,QIcon(":/icons/icons/includeexclude.png"),tr("Logs"));
     freshclamTab = new freshclamsetter(this);
+    connect(freshclamTab,SIGNAL(quitApplication()),this,SLOT(slot_quitApplication()));
     ui->tabWidget->addTab(freshclamTab,QIcon(":/icons/icons/freshclam.png"),tr("FreshClam"));
     clamdTab = new clamdManager(this);
     ui->tabWidget->addTab(clamdTab,QIcon(":/icons/icons/onaccess.png"),tr("Clamd"));
@@ -577,4 +578,9 @@ void clamav_gui::slot_sudoGUIProcessFinished()
 void clamav_gui::slot_switchActiveTab(int index)
 {
     ui->tabWidget->setCurrentIndex(index);
+}
+
+void clamav_gui::slot_quitApplication()
+{
+    qApp->quit();
 }

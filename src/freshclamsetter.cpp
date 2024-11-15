@@ -687,7 +687,12 @@ void freshclamsetter::initFreshclamSettings() {
     }
 
     lockFreshclamConf = false;
+    clamscanlocationProcessOutput = "";
     freshclamlocationProcessOutput = "";
+    parameters.clear();
+    parameters << "clamscan";
+    clamscanLocationProcess->start("whereis",parameters);
+
     parameters.clear();
     parameters << "freshclam";
     freshclamLocationProcess->start("whereis",parameters);
@@ -783,7 +788,8 @@ void freshclamsetter::slot_pidFileSelectButtonClicked()
 
 void freshclamsetter::slot_freshclamLocationProcessFinished()
 {
-    if (freshclamlocationProcessOutput != "freshclam:\n") {
+    freshclamlocationProcessOutput = freshclamlocationProcessOutput + freshclamLocationProcess->readAll();
+    if (freshclamlocationProcessOutput.length() > 13) {
         QStringList values = freshclamlocationProcessOutput.split(" ");
         if (values.size() > 1) {
             if (values.length() > 0) setupFile->setSectionValue("FreshclamSettings","FreshclamLocation",values[1]); else setupFile->setSectionValue("FreshclamSettings","FreshclamLocation","not found");
@@ -802,14 +808,27 @@ void freshclamsetter::slot_freshclamLocationProcessFinished()
         ui->freshclamLocationLineEdit->setText("not found");
         QMessageBox::warning(this,"WARNING","Freshclam is missing. Please install!",QMessageBox::Ok);
         setForm(false);        //emit disableUpdateButtons();
-        emit reportError();
-        emit systemStatusChanged();
+        emit quitApplication();
+    }
+}
+
+void freshclamsetter::slot_clamscanLocationProcessFinished()
+{
+    clamscanlocationProcessOutput = clamscanlocationProcessOutput + clamscanLocationProcess->readAll();
+    if (clamscanlocationProcessOutput.length() < 13) {
+        QMessageBox::warning(this,"ERROR","Clamav is missing. Please install!",QMessageBox::Ok);
+        emit quitApplication();
     }
 }
 
 void freshclamsetter::slot_freshclamLocationProcessHasOutput()
 {
     freshclamlocationProcessOutput = freshclamlocationProcessOutput + freshclamLocationProcess->readAll();
+}
+
+void freshclamsetter::slot_clamscanLocationProcessHasOutput()
+{
+    clamscanlocationProcessOutput = clamscanlocationProcessOutput + clamscanLocationProcess->readAll();
 }
 
 void freshclamsetter::slot_setFreshclamsettingsFrameState(bool state)
