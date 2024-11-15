@@ -102,7 +102,7 @@ QStringList parameters;
         if ((setupFile->getSectionValue("Directories","LoadSupportedDBFiles") != "") && (setupFile->getSectionValue("Directories","LoadSupportedDBFiles").indexOf("not checked") == -1)){
             para = setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") + " --datadir=" + setupFile->getSectionValue("Directories","LoadSupportedDBFiles").mid(setupFile->getSectionValue("Directories","LoadSupportedDBFiles").indexOf("|")+1) + " 2>&1 > " + QDir::homePath() + "/.clamav-gui/update.log" + " --config-file=" + QDir::homePath() + "/.clamav-gui/freshclam.conf" + whatDB;
         } else {
-            para = setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") + " 2>&1 > --show-progress" + QDir::homePath() + "/.clamav-gui/update.log" + " --config-file=" + QDir::homePath() + "/.clamav-gui/freshclam.conf" + whatDB;
+            para = setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") + " 2>&1 > " + QDir::homePath() + "/.clamav-gui/update.log" + " --show-progress --config-file=" + QDir::homePath() + "/.clamav-gui/freshclam.conf" + whatDB;
         }
         QFile startfreshclamFile(QDir::homePath() + "/.clamav-gui/startfreshclam.sh");
         startfreshclamFile.remove();
