@@ -1,3 +1,6 @@
+* Fri Oct 15 2024 Version 0.9.6
+- Implemented a check for clamscan and freshclam. If one or both applications are not installed an error message is issued and the clamav-gui quits.
+
 * Fri Aug 02 2024 Version 0.9.5
 - Progressdialog for manual update changed. Progress is now displayed in percent.
 
