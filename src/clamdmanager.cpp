@@ -332,7 +332,7 @@ void clamdManager::slot_clamdStartStopButtonClicked()
             if (startclamdFile.open(QIODevice::Text|QIODevice::ReadWrite)){
                 QString logFile = clamdConf->getSingleLineValue("LogFile");
                 QTextStream stream(&startclamdFile);
-                stream << "#!/bin/bash\n" << clamdLocation + " 2>" + logFile + " -c " + QDir::homePath() + "/.clamav-gui/clamd.conf && " + clamonaccLocation + " -c " + QDir::homePath() + "/.clamav-gui/clamd.conf -l " + QDir::homePath() + "/.clamav-gui/clamd.log" + clamonaccOptions;
+                stream << "#!/bin/bash\n" << clamdLocation + " 2> " + logFile + " -c " + QDir::homePath() + "/.clamav-gui/clamd.conf && " + clamonaccLocation + " -c " + QDir::homePath() + "/.clamav-gui/clamd.conf -l " + QDir::homePath() + "/.clamav-gui/clamd.log" + clamonaccOptions;
                 startclamdFile.close();
                 startclamdFile.setPermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner|QFileDevice::ExeOwner|QFileDevice::ReadGroup|QFileDevice::WriteGroup|QFileDevice::ExeGroup);
             }
@@ -534,7 +534,8 @@ void clamdManager::slot_clamdLocationProcessFinished()
         int start = output.indexOf(" ") + 1;
         int end = output.indexOf(" ",start) - start;
         clamdLocation = output.mid(start,end);
-        setupFile->setSectionValue("Clamd","ClamdLocation",clamdLocation);
+        clamdLocation = clamdLocation;
+        setupFile->setSectionValue("Clamd","ClamdLocation",clamdLocation.replace("\n",""));
         emit systemStatusChanged();
     }
 }
@@ -553,7 +554,7 @@ void clamdManager::slot_clamonaccLocationProcessFinished()
         int start = output.indexOf(" ") + 1;
         int end = output.indexOf(" ",start) - start;
         clamonaccLocation = output.mid(start,end);
-        setupFile->setSectionValue("Clamd","ClamonaccLocation",clamonaccLocation);
+        setupFile->setSectionValue("Clamd","ClamonaccLocation",clamonaccLocation.replace("\n",""));
         emit systemStatusChanged();
 
         QStringList parameters;

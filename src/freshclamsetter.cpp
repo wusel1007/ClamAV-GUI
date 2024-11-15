@@ -102,7 +102,7 @@ QStringList parameters;
         if ((setupFile->getSectionValue("Directories","LoadSupportedDBFiles") != "") && (setupFile->getSectionValue("Directories","LoadSupportedDBFiles").indexOf("not checked") == -1)){
             para = setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") + " --datadir=" + setupFile->getSectionValue("Directories","LoadSupportedDBFiles").mid(setupFile->getSectionValue("Directories","LoadSupportedDBFiles").indexOf("|")+1) + " 2>&1 > " + QDir::homePath() + "/.clamav-gui/update.log" + " --config-file=" + QDir::homePath() + "/.clamav-gui/freshclam.conf" + whatDB;
         } else {
-            para = setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") + " 2>&1 > " + QDir::homePath() + "/.clamav-gui/update.log" + " --config-file=" + QDir::homePath() + "/.clamav-gui/freshclam.conf" + whatDB;
+            para = setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") + " 2>&1 > --show-progress" + QDir::homePath() + "/.clamav-gui/update.log" + " --config-file=" + QDir::homePath() + "/.clamav-gui/freshclam.conf" + whatDB;
         }
         QFile startfreshclamFile(QDir::homePath() + "/.clamav-gui/startfreshclam.sh");
         startfreshclamFile.remove();
@@ -126,7 +126,6 @@ QStringList parameters;
         parameters << "-l" << QDir::homePath() + "/.clamav-gui/update.log";
         parameters << "--show-progress";
         parameters << "--config-file" << QDir::homePath() + "/.clamav-gui/freshclam.conf";
-
         updater->start(setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") ,parameters);
     }
     updateLogFileWatcher->removePath(QDir::homePath() + "/.clamav-gui/update.log");
@@ -301,6 +300,7 @@ QStringList parameters;
 
 void freshclamsetter::slot_updaterFinished(int rc){
     delete busyLabel;
+    QString rcstring = updater->readAll();
 
     if (rc == 0) {
         emit setBallonMessage(0,tr("INFO"),tr("Update-Process finished"));
@@ -596,6 +596,9 @@ void freshclamsetter::slot_startDeamonProcessFinished(int exitCode,QProcess::Exi
 void freshclamsetter::initFreshclamSettings() {
     QStringList parameters;
     QFile tempFile;
+    QFile ca_certFile("/etc/pki/tls/certs/ca-bundle.crt");
+    QString message = "WARNING\nThe file \"/etc/pki/tls/certs/ca-bundle.crt\" is missing!\nDepending on your version of clamav, it will not work without this file \"freshclam\" will not work.\nInstall the appropriate package for your distribution.";
+    if (ca_certFile.exists() == false) QMessageBox::warning(this,"WARNING",message);
 
     lockFreshclamConf = true;
     setupFile = new setupFileHandler(QDir::homePath() + "/.clamav-gui/settings.ini");
@@ -614,6 +617,10 @@ void freshclamsetter::initFreshclamSettings() {
     freshclamLocationProcess = new QProcess(this);
     connect(freshclamLocationProcess,SIGNAL(finished(int)),this,SLOT(slot_freshclamLocationProcessFinished()));
     connect(freshclamLocationProcess,SIGNAL(readyRead()),this,SLOT(slot_freshclamLocationProcessHasOutput()));
+
+    clamscanLocationProcess = new QProcess(this);
+    connect(clamscanLocationProcess,SIGNAL(finished(int)),this,SLOT(slot_clamscanLocationProcessFinished()));
+
     freshclamConf = new setupFileHandler(QDir::homePath() + "/.clamav-gui/freshclam.conf");
 
     if (freshclamConf->singleLineExists("DatabaseDirectory") == true) {
@@ -792,7 +799,7 @@ void freshclamsetter::slot_freshclamLocationProcessFinished()
     if (freshclamlocationProcessOutput.length() > 13) {
         QStringList values = freshclamlocationProcessOutput.split(" ");
         if (values.size() > 1) {
-            if (values.length() > 0) setupFile->setSectionValue("FreshclamSettings","FreshclamLocation",values[1]); else setupFile->setSectionValue("FreshclamSettings","FreshclamLocation","not found");
+            if (values.length() > 0) setupFile->setSectionValue("FreshclamSettings","FreshclamLocation",values[1].replace("\n","")); else setupFile->setSectionValue("FreshclamSettings","FreshclamLocation","not found");
             ui->freshclamLocationLineEdit->setText(values[1]);
             emit systemStatusChanged();
             QFile file(ui->databaseDirectoryPathLabel->text() + "/freshclam.dat");
