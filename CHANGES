@@ -1,3 +1,6 @@
+* Fri Oct 15 2024 Version 0.9.7
+- Fixed the startup script "startfreshclam.sh" and now at startup is checked whether the file "/etc/pki/tls/certs/ca-bundle.crt" is present. This file is needed by freshclam.
+
 * Fri Oct 15 2024 Version 0.9.6
 - Implemented a check for clamscan and freshclam. If one or both applications are not installed an error message is issued and the clamav-gui quits.
 
