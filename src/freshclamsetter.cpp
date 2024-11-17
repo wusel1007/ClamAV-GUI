@@ -100,7 +100,7 @@ QStringList parameters;
         QString para;
         if (setupFile->getSectionIntValue("FreshClam","DataBaseToUpdate") > 0) whatDB = " --update-db=" + databaseToUpdate[setupFile->getSectionIntValue("FreshClam","DataBaseToUpdate")];
         if ((setupFile->getSectionValue("Directories","LoadSupportedDBFiles") != "") && (setupFile->getSectionValue("Directories","LoadSupportedDBFiles").indexOf("not checked") == -1)){
-            para = setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") + " --datadir=" + setupFile->getSectionValue("Directories","LoadSupportedDBFiles").mid(setupFile->getSectionValue("Directories","LoadSupportedDBFiles").indexOf("|")+1) + " 2>&1 > " + QDir::homePath() + "/.clamav-gui/update.log" + " --config-file=" + QDir::homePath() + "/.clamav-gui/freshclam.conf" + whatDB;
+            para = setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") + " --show-progress --datadir=" + setupFile->getSectionValue("Directories","LoadSupportedDBFiles").mid(setupFile->getSectionValue("Directories","LoadSupportedDBFiles").indexOf("|")+1) + " 2>&1 > " + QDir::homePath() + "/.clamav-gui/update.log" + " --config-file=" + QDir::homePath() + "/.clamav-gui/freshclam.conf" + whatDB;
         } else {
             para = setupFile->getSectionValue("FreshclamSettings","FreshclamLocation") + " 2>&1 > " + QDir::homePath() + "/.clamav-gui/update.log" + " --show-progress --config-file=" + QDir::homePath() + "/.clamav-gui/freshclam.conf" + whatDB;
         }
@@ -620,7 +620,7 @@ void freshclamsetter::initFreshclamSettings() {
 
     clamscanLocationProcess = new QProcess(this);
     connect(clamscanLocationProcess,SIGNAL(finished(int)),this,SLOT(slot_clamscanLocationProcessFinished()));
-
+    connect(clamscanLocationProcess,SIGNAL(readyRead()),this,SLOT(slot_clamscanLocationProcessHasOutput()));
     freshclamConf = new setupFileHandler(QDir::homePath() + "/.clamav-gui/freshclam.conf");
 
     if (freshclamConf->singleLineExists("DatabaseDirectory") == true) {
@@ -696,6 +696,7 @@ void freshclamsetter::initFreshclamSettings() {
     lockFreshclamConf = false;
     clamscanlocationProcessOutput = "";
     freshclamlocationProcessOutput = "";
+
     parameters.clear();
     parameters << "clamscan";
     clamscanLocationProcess->start("whereis",parameters);

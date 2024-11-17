@@ -195,7 +195,6 @@ void scheduleScanObject::slot_closeWindowTimerTimeout(){
         this->accept();
     } else {
         countDown->setValue(closeWindowCounter);
-
         closeWindowTimer->start(100);
     }
 }

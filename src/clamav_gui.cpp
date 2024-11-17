@@ -118,7 +118,7 @@ if (tempDir.exists(QDir::homePath() + "/.local/share/kservices5/ServiceMenus/sca
     ui->tabWidget->addTab(setUpTab,QIcon(":/icons/icons/setup.png"),tr("Setup"));
     infoTab = new infoDialog(this);
     ui->tabWidget->addTab(infoTab,QIcon(":/icons/icons/information.png"),tr("About"));
-    ui->tabWidget->setTabShape(QTabWidget::Triangular);
+    ui->tabWidget->setTabShape(QTabWidget::Rounded);
     connect(freshclamTab,SIGNAL(setBallonMessage(int,QString,QString)),this,SLOT(slot_setTrayIconBalloonMessage(int,QString,QString)));
     connect(clamdTab,SIGNAL(setBallonMessage(int,QString,QString)),this,SLOT(slot_setTrayIconBalloonMessage(int,QString,QString)));
     connect(profileManagerTab,SIGNAL(triggerProfilesChanged()),schedulerTab,SLOT(slot_updateProfiles()));
@@ -133,7 +133,6 @@ if (tempDir.exists(QDir::homePath() + "/.local/share/kservices5/ServiceMenus/sca
     showLogoTimer->setSingleShot(true);
     connect(showLogoTimer,SIGNAL(timeout()),this,SLOT(slot_showLogoTimerTimeout()));
     showLogoTimer->start(250);
-
     connect(optionTab,SIGNAL(databasePathChanged(QString)),freshclamTab,SLOT(slot_dbPathChanged(QString)));
     connect(freshclamTab,SIGNAL(disableUpdateButtons()),freshclamTab,SLOT(slot_disableUpdateButtons()));
     connect(freshclamTab,SIGNAL(disableUpdateButtons()),scannerTab,SLOT(slot_disableScanButton()));

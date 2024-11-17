@@ -15,10 +15,10 @@ int main(int argc, char *argv[])
 QTranslator translator(0);
 QTcpServer server;
 QStringList parameters;
-//QStringList databaseDirSet;
 QString lang;
 QString setLang;
 QString rc;
+bool translatorLoaded = false;
 
     QApplication a(argc, argv);
     lang = QLocale::system().name();
@@ -187,10 +187,10 @@ QString rc;
         QString filename = "clamav-gui-" + lang + ".qm";
 
         if (QFile::exists("/usr/share/clamav-gui/" + filename)){
-            translator.load(filename,"/usr/share/clamav-gui");
+            translatorLoaded = translator.load(filename,"/usr/share/clamav-gui");
         }
 
-        a.installTranslator(&translator);
+        if (translatorLoaded == true) a.installTranslator(&translator);
 
         clamav_gui w;
         w.show();

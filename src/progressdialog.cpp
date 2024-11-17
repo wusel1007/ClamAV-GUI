@@ -9,7 +9,6 @@ progressDialog::progressDialog(QWidget *parent) : QWidget(parent), ui(new Ui::pr
     progressBar->setMaximum(100);
     progressBar->setMinimum(0);
     progressBar->setValue(0);
-    progressBar->setValue(100);
     progressBar->setBarStyle(QRoundProgressBar::StyleDonut);
     progressBar->setFormat("");
     progressBar->show();

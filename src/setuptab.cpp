@@ -38,9 +38,9 @@ setupTab::~setupTab()
 
 void setupTab::slot_updateSystemInfo()
 {
-    if (setupFile->keywordExists("Clamd","ClamdLocation") == true) ui->clamdPath->setText(setupFile->getSectionValue("Clamd","ClamdLocation"));
-    if (setupFile->keywordExists("Clamd","ClamonaccLocation") == true) ui->clamonaccPath->setText(setupFile->getSectionValue("Clamd","ClamonaccLocation"));
-    if (setupFile->keywordExists("FreshclamSettings","FreshclamLocation") == true) ui->freshclamPath->setText(setupFile->getSectionValue("FreshclamSettings","FreshclamLocation"));
+    if (setupFile->keywordExists("Clamd","ClamdLocation") == true) ui->clamdPath->setText(setupFile->getSectionValue("Clamd","ClamdLocation").replace("\n",""));
+    if (setupFile->keywordExists("Clamd","ClamonaccLocation") == true) ui->clamonaccPath->setText(setupFile->getSectionValue("Clamd","ClamonaccLocation").replace("\n",""));
+    if (setupFile->keywordExists("FreshclamSettings","FreshclamLocation") == true) ui->freshclamPath->setText(setupFile->getSectionValue("FreshclamSettings","FreshclamLocation").replace("\n",""));
     if (setupFile->sectionExists("Updater") == true) {
         ui->databasePath->setText(setupFile->getSectionValue("Directories","LoadSupportedDBFiles").mid(setupFile->getSectionValue("Directories","LoadSupportedDBFiles").indexOf("|")+1));
         ui->databaseLastUpdate->setText(setupFile->getSectionValue("Updater","LastUpdate"));

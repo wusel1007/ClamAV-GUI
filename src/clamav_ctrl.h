@@ -23,7 +23,6 @@
 
 #include <QSystemTrayIcon>
 #include <QDragEnterEvent>
-#include <QDesktopWidget>
 #include <QMessageBox>
 #include <QDropEvent>
 #include <QMimeData>

@@ -533,9 +533,8 @@ void clamdManager::slot_clamdLocationProcessFinished()
     } else {
         int start = output.indexOf(" ") + 1;
         int end = output.indexOf(" ",start) - start;
-        clamdLocation = output.mid(start,end);
-        clamdLocation = clamdLocation;
-        setupFile->setSectionValue("Clamd","ClamdLocation",clamdLocation.replace("\n",""));
+        clamdLocation = output.mid(start,end - 1);
+        setupFile->setSectionValue("Clamd","ClamdLocation",clamdLocation);
         emit systemStatusChanged();
     }
 }

@@ -30,6 +30,9 @@ QStringList selectableProfiles;
 
 void ProfileManager::slot_readProfileSettings(){
 QString profileName = ui->profileComboBox->currentText();
+if (profileName == "")
+    return;
+
 setupFileHandler * tempSetupFile = new setupFileHandler(QDir::homePath() + "/.clamav-gui/profiles/" + profileName + ".ini");
 QStringList targets;
 QString targetLabel;
