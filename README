@@ -39,7 +39,7 @@ Questions / Suggestions:
 
 Have fun with your virus-free machine.
 
-INFO - Changes using clamav 1.0.7
-With Version 1.0.7 of clamav there is an issue with "freshclam". Freshclam needs the file "ca-bundle.crt" in the folder "/etc/pki/tls/certs" and at least on OpenSuse not the file nor the folder exists.
-I found the package "ca-certificates-steamtricks" that has the file "ca-certificates.crt" in its package. When I copy this file in the folder "/etc/pki/tls/certs" and rename it to "ca-bundle.crt" freshclam just works fine.
-I agree, it is a workaround but untill anybody finds a better solution .... 
+INFO - Changes using clamav 1.0.7 or 1.4.1
+Version 1.0.7 and 1.4.1 of clamav have an issue with "freshclam". Freshclam needs the file "ca-bundle.crt" in the folder "/etc/pki/tls/certs" and neither the folder nor the file exists in Open SuSE.
+On Open SuSE I found the file "ca-bundle.pem" in the folder "/etc/ssl" and a softlink to "/etc/pki/tls/certs/ca-bundle.crt" solves the problem. Maybe on other system this procedure will work as well.
+
