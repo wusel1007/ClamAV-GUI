@@ -70,6 +70,13 @@ void optionsDialog::slot_getClamscanProcessFinished()
         line = line.trimmed();
         if (line.indexOf("Clam AntiVirus:") != -1) {
             QString version = line.mid(line.indexOf("Clam AntiVirus:") + 15);
+            if ((version.indexOf("Scanner 1.4.1") != -1) || (version.indexOf("Scanner 1.0.7") != -1)) {
+              QFile ca_certFile("/etc/pki/tls/certs/ca-bundle.crt");
+              QString message = "WARNING\nThe file \"/etc/pki/tls/certs/ca-bundle.crt\" is missing!\nVersion 1.0.7 and 1.4.1 are known to require this file in this specific locaction and without it \"freshclam\" will not work.\nInstall the appropriate package for your distribution.";
+              QFile ca_alternative_location ("/etc/ssl/ca-bundle.pem");
+              if (ca_alternative_location.exists() == true) message = "WARNING\nThe file \"/etc/pki/tls/certs/ca-bundle.crt\" is missing!\nVersion 1.0.7 and 1.4.1 are known to require this file in this specific locaction and without it \"freshclam\" will not work.\n\nFound the file in the location \"/etc/ssl/ca-bundle.pem\".\n\nDo the following command as root (sudo) to fix this issue:\n\nln -s /etc/ssl/ca-bundle.pem /etc/pki/tls/certs/ca-bundle.crt";
+              if (ca_certFile.exists() == false) QMessageBox::warning(this,"WARNING",message);
+            }
             ui->versionLabel->setText("ClamAV Version:" + version);
         }
         if (line.indexOf("--") == 0) {

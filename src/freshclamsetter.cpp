@@ -596,9 +596,6 @@ void freshclamsetter::slot_startDeamonProcessFinished(int exitCode,QProcess::Exi
 void freshclamsetter::initFreshclamSettings() {
     QStringList parameters;
     QFile tempFile;
-    QFile ca_certFile("/etc/pki/tls/certs/ca-bundle.crt");
-    QString message = "WARNING\nThe file \"/etc/pki/tls/certs/ca-bundle.crt\" is missing!\nDepending on your version of clamav, it will not work without this file \"freshclam\" will not work.\nInstall the appropriate package for your distribution.";
-    if (ca_certFile.exists() == false) QMessageBox::warning(this,"WARNING",message);
 
     lockFreshclamConf = true;
     setupFile = new setupFileHandler(QDir::homePath() + "/.clamav-gui/settings.ini");
