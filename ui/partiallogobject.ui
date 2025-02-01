@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>partialLogObject</class>
+ <widget class="QWidget" name="partialLogObject">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>664</width>
+    <height>386</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QFrame" name="logFrame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QPlainTextEdit" name="logPlainText">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="horizontalSpacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="searchTextLineEdit"/>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="searchButton">
+          <property name="text">
+           <string>search</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="clearLineEditButton">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:white</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources.qrc">
+            <normaloff>:/icons/icons/editclear.png</normaloff>:/icons/icons/editclear.png</iconset>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="engineVersionLabel">
+       <property name="styleSheet">
+        <string notr="true">background:#b0b0b0;padding:5px;</string>
+       </property>
+       <property name="text">
+        <string>Engine Version:</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="scannedDirectoriesLabel">
+       <property name="styleSheet">
+        <string notr="true">background:#b0b0b0;padding:5px;</string>
+       </property>
+       <property name="text">
+        <string>Scanned Directories:</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="scannedFilesLabel">
+       <property name="styleSheet">
+        <string notr="true">background:#b0b0b0;padding:5px;</string>
+       </property>
+       <property name="text">
+        <string>Scanned Files:</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="totalErrorsLabel">
+       <property name="toolTip">
+        <string>Click me to get to the error lines!</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background:#b0b0b0;padding:5px;</string>
+       </property>
+       <property name="text">
+        <string>Total Errors:</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="infectedFilesLabel">
+       <property name="toolTip">
+        <string>Click me to get to the infected files!</string>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background:#b0b0b0;padding:5px;</string>
+       </property>
+       <property name="text">
+        <string>Infected Files: </string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>searchButton</sender>
+   <signal>clicked()</signal>
+   <receiver>partialLogObject</receiver>
+   <slot>slot_searchButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>595</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>658</x>
+     <y>324</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>searchTextLineEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>partialLogObject</receiver>
+   <slot>slot_searchLineEditChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>317</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>searchTextLineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>partialLogObject</receiver>
+   <slot>slot_searchButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>326</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearLineEditButton</sender>
+   <signal>clicked()</signal>
+   <receiver>partialLogObject</receiver>
+   <slot>slot_clearLineEditButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>545</x>
+     <y>322</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>658</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>totalErrorsLabel</sender>
+   <signal>clicked()</signal>
+   <receiver>partialLogObject</receiver>
+   <slot>slot_totalErrorButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>448</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>459</x>
+     <y>381</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>infectedFilesLabel</sender>
+   <signal>clicked()</signal>
+   <receiver>partialLogObject</receiver>
+   <slot>slot_infectedFilesButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>613</x>
+     <y>360</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>659</x>
+     <y>360</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slot_searchButtonClicked()</slot>
+  <slot>slot_searchLineEditChanged()</slot>
+  <slot>slot_clearLineEditButtonClicked()</slot>
+  <slot>slot_infectedFilesButtonClicked()</slot>
+  <slot>slot_totalErrorButtonClicked()</slot>
+ </slots>
+</ui>

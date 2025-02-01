@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>logViewerObject</class>
+ <widget class="QWidget" name="logViewerObject">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>655</width>
+    <height>382</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="1" colspan="4">
+    <widget class="QTabWidget" name="logTab">
+     <property name="currentIndex">
+      <number>-1</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="4">
+    <widget class="QPushButton" name="clearLogButton">
+     <property name="text">
+      <string>clear Log</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/icons/icons/trash-can.png</normaloff>:/icons/icons/trash-can.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>22</width>
+       <height>22</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QFrame" name="frame">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="2">
+       <widget class="QComboBox" name="profileComboBox"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="profileLabel">
+        <property name="text">
+         <string>Select Profile:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="2" colspan="3">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="2" colspan="2">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>428</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="clearAllButton">
+     <property name="text">
+      <string>Clear All</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/icons/icons/clear_all.png</normaloff>:/icons/icons/clear_all.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>22</width>
+       <height>22</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>profileComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>logViewerObject</receiver>
+   <slot>slot_profileSeclectionChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>182</x>
+     <y>36</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>240</x>
+     <y>14</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearLogButton</sender>
+   <signal>clicked()</signal>
+   <receiver>logViewerObject</receiver>
+   <slot>slot_clearLogButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>645</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>442</x>
+     <y>356</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearAllButton</sender>
+   <signal>clicked()</signal>
+   <receiver>logViewerObject</receiver>
+   <slot>slot_clearAllButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>113</x>
+     <y>355</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>353</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slot_profileSeclectionChanged()</slot>
+  <slot>slot_clearLogButtonClicked()</slot>
+  <slot>slot_clearAllButtonClicked()</slot>
+ </slots>
+</ui>
